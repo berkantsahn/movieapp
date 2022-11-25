@@ -4,21 +4,28 @@
         {{ movies.length }} adet film bulundu.
     </div>
 
-    <ng-template [ngTemplateOutlet]="movieList2" [ngTemplateOutletContext]="{ movies: popularMovies }"></ng-template>
+    <div class="mb-3">
+        <input type="text" class="form-control" [(ngModel)]="filterText" placeholder = "Ara..."/>
+        <small class="text-muted" *ngIf="filterText"> Aradığınız Film: {{ filterText }}</small>
+    </div>
+
+    <!-- <ng-template [ngTemplateOutlet]="movieList2" [ngTemplateOutletContext]="{ movies: popularMovies }"></ng-template> -->
     <ng-template [ngTemplateOutlet]="movieList1"></ng-template>
 
 </div>
 
 <ng-template #movieList1>
-    <div class="card mb-3" *ngFor="let item of movies">
+    <div class="card mb-3" *ngFor="let item of movies | movieFilter: filterText">
         <div class="row">
             <div class="col-md-3">
                 <img src="assets/img/{{item.imageUrl}}" class="img-fluid rounded-start" alt="">
             </div>
             <div class="col-md-9">
                 <div class="card-body">
-                    <h2 class="card-title">{{ item.title }}</h2>
-                    <p class="card-text">{{ item.description }}</p>
+                    <!-- titlecase çekilen verinin baş harfini büyük yapmak için, uppercase ise hepsini büyük yapmak için kullanılabilir -->
+                    <h2 class="card-title">{{ item.title | titlecase }}</h2>
+                    <p class="card-text">{{ item.description | summary: 20}}</p>
+                    <p class="card-text">{{ item.datePublished | date: 'dd/MM/y'}}</p>
                     <button class="btn btn-sm btn-outline-primary">Detaylar</button>
                 </div>
             </div>
@@ -26,7 +33,38 @@
     </div>
 </ng-template>
 
-<ng-template #movieList2 let-filmler = "movies">
+<!-- <h3>Pipe Kullanımları</h3>
+<h4>lower-upper-title pipe</h4>
+<p> {{ 'Samsung S20'}}</p>
+<p> {{ 'Samsung S20' | lowercase}}</p>
+<p> {{ 'Samsung S20' | uppercase}}</p>
+<p> {{ 'Samsung S20' | titlecase }}</p>
+<br><br>
+<h4>Date pipe</h4>
+<p>{{ today }}</p>
+<p>{{ today | date}}</p>
+<p>{{ today | date: 'fullDate'}}</p>
+<br><br>
+<h4>Decimal pipe</h4>
+<p>{{ 2.543465432 | number }}</p>
+<p>{{ 2.543465432 | number: '1.0-2' }}</p>
+<p>{{ 2.543465432 | number: '1.0-4' }}</p>
+<p>{{ 2.543465432 | number: '1.0-0' }}</p>
+<p>{{ 2.543465432 | number: '3.1-5' }}</p>
+<br><br>
+<h4>Currency pipe</h4>
+<p>{{ 315 | currency }}</p>
+<p>{{ 315 | currency: 'EUR' }}</p>
+<p>{{ 315 | currency: 'TRY' }}</p>
+<br><br>
+<h4>Percent pipe</h4>
+<p>{{ 0.648 | percent }}</p>
+<p>{{ 0.0148 | percent }}</p>
+<p>{{ 0.0152 | percent }}</p>
+<p>{{ 1.275 | percent: '2.2-4' }}</p>
+<p>{{ 3/4 | percent: '2.2-4' }}</p> -->
+
+<!-- <ng-template #movieList2 let-filmler = "movies">
     <div class="row row-cols-1 row-cols-md-3 g-4 mb-3">
         <div class="col" *ngFor="let item of filmler">
             <div class="card h-100">
@@ -38,7 +76,7 @@
             </div>
         </div>
     </div>
-</ng-template>
+</ng-template> -->
 
 <ng-template class="alert alert-warning" #noMovies>Film bulunamadı</ng-template>
 <!-- <app-movie *ngFor="let item of movies"></app-movie> -->

@@ -6,6 +6,9 @@
     "movieapp": {
       "projectType": "application",
       "schematics": {},
+      "i18n": {
+        "sourceLocale": "tr"
+      },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
