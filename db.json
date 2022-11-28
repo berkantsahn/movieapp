@@ -1,0 +1,21 @@
+{
+    "movies": [
+        { "id": 1, "title": "Film 1", "description": "1- Lorem ipsum dolor, sit amet consectetur adipisicing elit. Pariatur eum molestiae culpa similique sunt inventore aut, quasi eveniet, architecto sint reprehenderit! Amet, illo voluptas! Suscipit minus facilis error dignissimos dolorum!", 
+        "imageUrl": "1.jpeg", "isPopular": 0},
+        { "id": 2, "title": "Film 2", "description": "2- Lorem ipsum dolor, sit amet consectetur adipisicing elit. Pariatur eum molestiae culpa similique sunt inventore aut, quasi eveniet, architecto sint reprehenderit! Amet, illo voluptas! Suscipit minus facilis error dignissimos dolorum!", 
+        "imageUrl": "2.jpeg", "isPopular": 1},
+        { "id": 3, "title": "Film 3", "description": "3- Lorem ipsum dolor, sit amet consectetur adipisicing elit. Pariatur eum molestiae culpa similique sunt inventore aut, quasi eveniet, architecto sint reprehenderit! Amet, illo voluptas! Suscipit minus facilis error dignissimos dolorum!", 
+        "imageUrl": "3.jpeg", "isPopular": 1},
+        { "id": 4, "title": "Film 4", "description": "4- Lorem ipsum dolor, sit amet consectetur adipisicing elit. Pariatur eum molestiae culpa similique sunt inventore aut, quasi eveniet, architecto sint reprehenderit! Amet, illo voluptas! Suscipit minus facilis error dignissimos dolorum!", 
+        "imageUrl": "4.jpeg", "isPopular": 1},
+        { "id": 5, "title": "Film 5", "description": "5- Farklı bir açıklama", 
+        "imageUrl": "5.jpeg", "isPopular": 0}
+    ],
+    "categories": [
+        {"id": 1, "title": "Macera"},
+        {"id": 2, "title": "Romantik"},
+        {"id": 3, "title": "Komedi"},
+        {"id": 4, "title": "Dram"},
+        {"id": 5, "title": "Bilim Kurgu"}
+    ]
+}
