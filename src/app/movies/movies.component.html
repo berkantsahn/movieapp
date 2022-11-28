@@ -25,7 +25,7 @@
                     <!-- titlecase çekilen verinin baş harfini büyük yapmak için, uppercase ise hepsini büyük yapmak için kullanılabilir -->
                     <h2 class="card-title">{{ item.title | titlecase }}</h2>
                     <p class="card-text">{{ item.description | summary: 20}}</p>
-                    <p class="card-text">{{ item.datePublished | date: 'dd/MM/y'}}</p>
+                    <!-- <p class="card-text">{{ item.datePublished | date: 'dd/MM/y'}}</p> -->
                     <div>
                         <button class="btn btn-sm btn-outline-primary">Detaylar</button>
                         <button (click)="addToList($event, item)" class="btn btn-sm btn-primary ms-1">Listeye Ekle</button>

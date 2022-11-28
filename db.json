@@ -9,13 +9,15 @@
         { "id": 4, "title": "Film 4", "description": "4- Lorem ipsum dolor, sit amet consectetur adipisicing elit. Pariatur eum molestiae culpa similique sunt inventore aut, quasi eveniet, architecto sint reprehenderit! Amet, illo voluptas! Suscipit minus facilis error dignissimos dolorum!", 
         "imageUrl": "4.jpeg", "isPopular": 1},
         { "id": 5, "title": "Film 5", "description": "5- Farklı bir açıklama", 
-        "imageUrl": "5.jpeg", "isPopular": 0}
+        "imageUrl": "5.jpeg", "isPopular": 0},
+        { "id": 6, "title": "Film 6", "description": "6- Farklı bir açıklama", 
+        "imageUrl": "1.jpeg", "isPopular": 0}
     ],
     "categories": [
-        {"id": 1, "title": "Macera"},
-        {"id": 2, "title": "Romantik"},
-        {"id": 3, "title": "Komedi"},
-        {"id": 4, "title": "Dram"},
-        {"id": 5, "title": "Bilim Kurgu"}
+        {"id": 1, "name": "macera"},
+        {"id": 2, "name": "romantik"},
+        {"id": 3, "name": "komedi"},
+        {"id": 4, "name": "dram"},
+        {"id": 5, "name": "bilim Kurgu"}
     ]
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Movie } from '../models/movie';
 import { MovieRepository } from '../models/movie.repository';
 import { AlertifyService } from '../services/alertify.service';
+import { MovieService } from '../services/movie.service';
 
 //alertify lib kullanmak için tanımlama yaptık. Global bir alertify servis oluşturduğumuz için buradan kaldırıyoruz
 //declare let alertify: any;
@@ -9,30 +10,57 @@ import { AlertifyService } from '../services/alertify.service';
 @Component({
   selector: 'app-movies',
   templateUrl: './movies.component.html',
-  styleUrls: ['./movies.component.css']
+  styleUrls: ['./movies.component.css'],
+  providers: [MovieService]
 })
 export class MoviesComponent implements OnInit {
 
   title:string = "Film Listesi"
-  movies: Movie[];
-  filteredMovies: Movie[];
+
+  // referans olarak boş değer gönderiyoruz
+  movies: Movie[] = [] ;
+  filteredMovies: Movie[] = [];
   //pipe yerine event kullanılarak filtremele işlemi yapıldığı için açıklama satırına alındı
   //popularMovies: Movie[];
-  movieRepository: MovieRepository;
+
+  // db.json içerisinden verileri çekeceğimiz için movieRepository değişkenine ihtiyacımız kalmadı bu nedenle yorum satırına alındı
+  //movieRepository: MovieRepository;
   today = new Date();
   
   filterText: string = "";
 
-  //oluşturduğumuz alertify servisi constructor içerisinde alertify servisi inject ettik
-  constructor(private alertify: AlertifyService){
-    this.movieRepository = new MovieRepository();
-    this.movies = this.movieRepository.getMovies();
-    this.filteredMovies = this.movies;
+  // oluşturduğumuz alertify servisi constructor içerisinde alertify servisi inject ettik
+  // db.json içerisinden veri çekeceğimiz için httpClient tanımlaması yaptık
+  constructor(private alertify: AlertifyService, private movieService: MovieService){
+    // db.json içerisinden verileri çekeceğimiz için buradaki movieRepository ve movies tanımlamalarını yorum satırına alındı
+    // this.movieRepository = new MovieRepository();
+    // this.movies = this.movieRepository.getMovies();
+    //this.filteredMovies = this.movies;
     //this.popularMovies = this.movieRepository.getPopularMovies();
   }
 
+  // ngOnInit component oluşturulduktan fakat çağırılmadan önce çalıştırılır. Bu nedenle json içerisinden Movie'ye bir referans verilmesi gerekmektedir.
+  // (burada örnek Movie üzerinden yapıldığı için referans verilmesi gereken Movie'dir)
+  // Referansı tanımlama aşamasında (yukarıda) veriyoruz. (içerisine boş bir değer gönderiyoruz)
   ngOnInit(): void {
-    
+    // aşağıdaki kodlar kullanılmak istenirse constructor içerisine httpClient tanımlaması yapılmalıdır
+    // httpclient işlemleri service içerisine taşındığı için burada açıklama satırına alınmıştır
+    // gelen sonuç observable bir değerdir
+    // this.http.get<Movie[]>("http://localhost:3000/movies").subscribe(data => {
+    //   this.movies = data;
+    //   this.filteredMovies = this.movies;
+    // });
+
+    // aşağıda internette bulunan bir json dosyasından veri çekme işlemi gösterilmiştir
+    // this.http.get("https://jsonplaceholder.typicode.com/users").subscribe(data => {
+    //   console.log(data);
+    // });
+
+    this.movieService.getMovies().subscribe(data => {
+      this.movies = data;
+      this.filteredMovies = this.movies;
+    });
+
   }
 
   onInputChange(){
