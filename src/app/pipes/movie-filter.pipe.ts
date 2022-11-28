@@ -9,8 +9,8 @@ export class MovieFilterPipe implements PipeTransform {
   //parantez içerisine parametler alınır. :'dan sonra ki belirtilen obje geri döndürülecek değer ile ilgilidir.
   transform(movies: Movie[], filterText:string): Movie[] {
     filterText = filterText.toLowerCase();
-    console.log(filterText);
-    console.log(movies);
+    // console.log(filterText);
+    // console.log(movies);
 
     //eğer filterText varsa movies.filter'i çalıştır diyoruz
     //m isimli Movies türünde bir değişken tanımlayıp title bilgisini küçük harfe dönüştürüyoruz
@@ -20,5 +20,4 @@ export class MovieFilterPipe implements PipeTransform {
     return filterText? movies.filter((m: Movie) => 
     m.title.toLowerCase().indexOf(filterText) !== -1 || m.description.toLowerCase().indexOf(filterText) !== -1): movies;
   }
-
 }
