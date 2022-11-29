@@ -1,4 +1,5 @@
 import { AbstractType, Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Movie } from '../models/movie';
 import { MovieRepository } from '../models/movie.repository';
 import { AlertifyService } from '../services/alertify.service';
@@ -25,14 +26,16 @@ export class MoviesComponent implements OnInit {
 
   // db.json içerisinden verileri çekeceğimiz için movieRepository değişkenine ihtiyacımız kalmadı bu nedenle yorum satırına alındı
   //movieRepository: MovieRepository;
-  today = new Date();
+  //today = new Date();
   
   filterText: string = "";
   error:any;
 
   // oluşturduğumuz alertify servisi constructor içerisinde alertify servisi inject ettik
   // db.json içerisinden veri çekeceğimiz için httpClient tanımlaması yaptık
-  constructor(private alertify: AlertifyService, private movieService: MovieService){
+  // url yapılandırmasını yapabilmek için activatedRoot isimli parametre constructor içerisine inject edilmelidir
+  constructor(private alertify: AlertifyService, private movieService: MovieService,
+    private activatedRoute: ActivatedRoute){
     // db.json içerisinden verileri çekeceğimiz için buradaki movieRepository ve movies tanımlamalarını yorum satırına alındı
     // this.movieRepository = new MovieRepository();
     // this.movies = this.movieRepository.getMovies();
@@ -57,11 +60,13 @@ export class MoviesComponent implements OnInit {
     //   console.log(data);
     // });
 
-    this.movieService.getMovies().subscribe(data => {
-      this.movies = data;
-      this.filteredMovies = this.movies;
-    }, error => { this.error = error });
-
+    //getMovies içerisine urlyi parametre olarak gönderebilmek için activatedRoot parametresi kullanılır
+    this.activatedRoute.params.subscribe(params => {
+      this.movieService.getMovies(params["categoryId"]).subscribe(data => {
+        this.movies = data;
+        this.filteredMovies = this.movies;
+      }, error => { this.error = error });
+    });
   }
 
   onInputChange(){
@@ -73,9 +78,9 @@ export class MoviesComponent implements OnInit {
   addToList($event: any, movie: Movie){
     //gönderilen event bilgisi (tıklanan buton) class listesine ulaş ve btn btn-primary ise
     //btn-primary'i sil ve btn-danger'i ekle ve yazıyı listeden çıkar olarak değiştir.
-    if($event.target.classList.contains('btn-primary')){
+    if($event.target.classList.contains('btn-dark')){
       $event.target.innerText = "Listeden Çıkar";
-      $event.target.classList.remove('btn-primary');
+      $event.target.classList.remove('btn-dark');
       $event.target.classList.add('btn-danger');
       //alertify servisi inject ettikten sonra alttaki kullanımı bir altındaki gibi değiştiriyoruz
       //alertify.success(movie.title + " listene eklendi");
@@ -84,7 +89,7 @@ export class MoviesComponent implements OnInit {
     else {
       $event.target.innerText = "Listeye Ekle";
       $event.target.classList.remove('btn-danger');
-      $event.target.classList.add('btn-primary');
+      $event.target.classList.add('btn-dark');
       //alertify.error(movie.title + " listenden çıkartıldı"); 
       this.alertify.success(movie.title + " listenden çıkartıldı");
     }

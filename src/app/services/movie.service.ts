@@ -5,13 +5,23 @@ import { Movie } from "../models/movie";
 
 @Injectable()
 export class MovieService {
-    url = "http://localhost:3000/movie";
+    url = "http://localhost:3000/movies";
 
     constructor(private http: HttpClient) {}
 
     // değer observable olarak alındığı için geriye dönen değerde observable olmalıdır
-    getMovies(): Observable<Movie[]> {
-        return this.http.get<Movie[]>(this.url).pipe(tap(data => console.log(data)),
+    getMovies(categoryId: number): Observable<Movie[]> {
+
+        let newUrl = this.url;
+        if(categoryId) {
+            newUrl += '?categoryId=' + categoryId;
+        }
+        return this.http.get<Movie[]>(newUrl).pipe(tap(data => console.log(data)),
+        catchError(this.handleError));
+    }
+
+    getMovieById(movieId: number): Observable<Movie> {
+        return this.http.get<Movie>(this.url + "/" + movieId).pipe(tap(data => console.log(data)),
         catchError(this.handleError));
     }
 

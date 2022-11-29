@@ -5,7 +5,11 @@
       <app-category></app-category>
     </div>
     <div class="col-md-9">
-      <app-movies></app-movies>
+      <!-- <app-movies></app-movies> -->
+      <!-- routing işlemini yapmak için ng g module app-routing --flat --module=app ile routing'i projemize ekledik
+      daha sonra gerekli tanımlamaları app-routing-module.ts içerisinde yaptık
+      ardından buraya routing işlemini yapmak için aşağıda bulunan gerekli kodları ekliyoruz -->
+      <router-outlet></router-outlet>
     </div>
   </div>
 </div>

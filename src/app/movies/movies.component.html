@@ -29,8 +29,8 @@
                     <p class="card-text">{{ item.description | summary: 20}}</p>
                     <!-- <p class="card-text">{{ item.datePublished | date: 'dd/MM/y'}}</p> -->
                     <div>
-                        <button class="btn btn-sm btn-outline-primary">Detaylar</button>
-                        <button (click)="addToList($event, item)" class="btn btn-sm btn-primary ms-1">Listeye Ekle</button>
+                        <a routerLink="/movies/{{ item.id }}" class="btn btn-sm btn-outline-dark">Detaylar</a>
+                        <button (click)="addToList($event, item)" class="btn btn-sm btn-dark ms-1">Listeye Ekle</button>
                     </div>
                     
                 </div>

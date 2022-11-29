@@ -13,6 +13,7 @@ import { FormsModule } from '@angular/forms';
 import { MovieFilterPipe } from './pipes/movie-filter.pipe';
 import { AlertifyService } from './services/alertify.service';
 import { HttpClientModule } from '@angular/common/http';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [ //Componentlerin eklendiği bölüm
@@ -29,7 +30,8 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [ //Modulelerin eklendiği bölüm
     BrowserModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    AppRoutingModule
   ],
   providers: [AlertifyService], //Serviceslerin eklendiği bölüm. Eğer serviceler burada tanımlanırsa global sadece component içerisinde tanımlanırsa yerel olur
   bootstrap: [AppComponent] //Starter Component
