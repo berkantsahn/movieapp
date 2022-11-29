@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AbstractType, Component, OnInit } from '@angular/core';
 import { Movie } from '../models/movie';
 import { MovieRepository } from '../models/movie.repository';
 import { AlertifyService } from '../services/alertify.service';
@@ -28,6 +28,7 @@ export class MoviesComponent implements OnInit {
   today = new Date();
   
   filterText: string = "";
+  error:any;
 
   // oluşturduğumuz alertify servisi constructor içerisinde alertify servisi inject ettik
   // db.json içerisinden veri çekeceğimiz için httpClient tanımlaması yaptık
@@ -59,7 +60,7 @@ export class MoviesComponent implements OnInit {
     this.movieService.getMovies().subscribe(data => {
       this.movies = data;
       this.filteredMovies = this.movies;
-    });
+    }, error => { this.error = error });
 
   }
 
