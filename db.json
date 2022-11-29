@@ -42,38 +42,12 @@
     },
     {
       "id": 6,
-      "title": "Film 6",
-      "description": "6- Farklı bir açıklama",
+      "title": "Test Film 1",
+      "description": "Bu bir test film 1 açıklamasıdır",
       "imageUrl": "1.jpeg",
-      "isPopular": 0,
-      "categoryId": 5
-    },
-    {
-      "id": 7,
-      "title": "test",
-      "description": "mest",
-      "imageUrl": "2.jpeg",
       "isPopular": false,
-      "datePublished": 1669721159091,
-      "categoryId": "2"
-    },
-    {
-      "id": 8,
-      "title": "Mest",
-      "description": "mest açıklama",
-      "imageUrl": "3.jpeg",
-      "isPopular": false,
-      "datePublished": 1669721394578,
-      "categoryId": "4"
-    },
-    {
-      "id": 9,
-      "title": "Jest",
-      "description": "jest açıklama",
-      "imageUrl": "4.jpeg",
-      "isPopular": false,
-      "datePublished": 1669721467119,
-      "categoryId": "2"
+      "datePublished": 1669732226291,
+      "categoryId": "5"
     }
   ],
   "categories": [

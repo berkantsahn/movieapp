@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm, NgModel } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Category } from '../models/category';
 import { AlertifyService } from '../services/alertify.service';
@@ -14,6 +16,11 @@ import { MovieService } from '../services/movie.service';
 export class MovieCreateComponent implements OnInit {
   
   categories: Category[];
+  // ilk başta seçiniz gelmesi için model içerisine -1 değerini gönderiyoruz
+  model: any = {
+    categoryId: ""
+  };
+  
 
   constructor(private categoryService:CategoryService, private movieService:MovieService, private router:Router, private alertify: AlertifyService) { }
 
@@ -23,35 +30,59 @@ export class MovieCreateComponent implements OnInit {
     });
   }
 
-  createMovie(title:any, description:any, imageUrl:any, categoryId:any){
+  // eğer elementlere id verip buton ile parametre gönderseydik aşağıdaki komutları kullanabilirdik
 
-    if(title.value === "" || description.value === ""  || imageUrl.value === "" || categoryId.value === "-1"){
-      this.alertify.error('Tüm bilgiler eksiksiz girilmelidir');
-      return;
-    }
+  // createMovie(title:any, description:any, imageUrl:any, categoryId:any){
 
-    if(description.value.length < 20) {
-      this.alertify.error("Açıklama için minimum 20 karakter girilmelidir");
-      return;
-    }
+  //   if(title.value === "" || description.value === ""  || imageUrl.value === "" || categoryId.value === "-1"){
+  //     this.alertify.error('Tüm bilgiler eksiksiz girilmelidir');
+  //     return;
+  //   }
 
-    // imageUrl olarak jpeg, jpg, png dışında resim yüklenememesi için aşağıdaki işlemleri yapıyoruz
-    // split'ten sonra pop kullanarak uzantıyı alabiliriz (pop oluşturulan dizinin son elemanını alır -> örn; split yaptıktan sonra resim ["1"."jpeg"])
-    // olarak ayrılır son eleman olan jpegi almak için pop kullanıyoruz)
-    const extensions = ["jpeg", "jpg", "png"];
-    const extension = imageUrl.value.split('.').pop();
+  //   if(description.value.length < 20) {
+  //     this.alertify.error("Açıklama için minimum 20 karakter girilmelidir");
+  //     return;
+  //   }
 
-    if(extensions.indexOf(extension) === -1){
-      this.alertify.error("JPEG, JPG ve PNG dışında resim dosyaları yüklenemez");
-      return;
-    }
+  //   // imageUrl olarak jpeg, jpg, png dışında resim yüklenememesi için aşağıdaki işlemleri yapıyoruz
+  //   // split'ten sonra pop kullanarak uzantıyı alabiliriz (pop oluşturulan dizinin son elemanını alır -> örn; split yaptıktan sonra resim ["1"."jpeg"])
+  //   // olarak ayrılır son eleman olan jpegi almak için pop kullanıyoruz)
+  //   const extensions = ["jpeg", "jpg", "png"];
+  //   const extension = imageUrl.value.split('.').pop();
 
-    const movie = { id:0, title: title.value, description: description.value, 
-      imageUrl:imageUrl.value, isPopular: false, 
-      datePublished: new Date().getTime(), categoryId:categoryId.value};
+  //   if(extensions.indexOf(extension) === -1){
+  //     this.alertify.error("JPEG, JPG ve PNG dışında resim dosyaları yüklenemez");
+  //     return;
+  //   }
 
-    this.movieService.createMovie(movie).subscribe(data => this.router.navigate(['/movies']));
-    // veya navigate yaparken parametre verilip oluşturulan film açılabilir
-    // this.movieService.createMovie(movie).subscribe(data => this.router.navigate(['/movies'], data.id));
-  } 
+  //   const movie = { id:0, title: title.value, description: description.value, 
+  //     imageUrl:imageUrl.value, isPopular: false, 
+  //     datePublished: new Date().getTime(), categoryId:categoryId.value};
+
+  //   this.movieService.createMovie(movie).subscribe(data => this.router.navigate(['/movies']));
+  //   // veya navigate yaparken parametre verilip oluşturulan film açılabilir
+  //   // this.movieService.createMovie(movie).subscribe(data => this.router.navigate(['/movies'], data.id));
+  // }
+
+  //ngSubmit ile createMovie'yi çalıştıracağımız için yukarıdaki yerine aşağıdaki komutları uyguluyoruz
+
+  createMovie(){
+    const movie = {
+      id: 0,
+      title: this.model.title,
+      description: this.model.description,
+      imageUrl: this.model.imageUrl,
+      isPopular: false,
+      datePublished: new Date().getTime(),
+      categoryId: this.model.categoryId
+    };
+
+    this.movieService.createMovie(movie).subscribe(data =>
+      this.router.navigate(['/movies']));
+  }
+
+  log(value: any){
+    console.log(value);
+  }
+  
 }

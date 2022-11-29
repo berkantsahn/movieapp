@@ -1,27 +1,41 @@
 <h1>Film Ekle</h1>
-<form action="">
+<form #form = "ngForm" (ngSubmit)="createMovie()">
     <div class="mb-3">
         <label for="title" class="form-label">Başlık</label>
-        <input #title type="text" class="form-control"/>
+        <input type="text" required minlength="3" #title="ngModel" (click)="log(title)" [(ngModel)]="model.title" name="title" class="form-control">
+        <div class="alert alert-danger mt-1" *ngIf="title.invalid && title.touched">
+            <p *ngIf="title.errors['required']">Bu Alana Bilgi Girilmesi Zorunludur !</p>
+            <p *ngIf="title.errors['minlength']">Bu Alana Minimum 3 Karakter Girilmesi Zorunludur !</p>
+        </div>
     </div>
 
     <div class="mb-3">
         <label for="description" class="form-label">Açıklama</label>
-        <textarea #description class="form-control"></textarea>
+        <textarea required minlength="20" #description="ngModel" [(ngModel)]="model.description" name="description" class="form-control"></textarea>
+        <div class="alert alert-danger mt-1" *ngIf="description.invalid && description.touched">
+            <p *ngIf="description.errors['required']">Bu Alana Bilgi Girilmesi Zorunludur !</p>
+            <p *ngIf="description.errors['minlength']">Bu Alana Minimum 20 Karakter Girilmesi Zorunludur !</p>
+        </div>
     </div>
 
     <div class="mb-3">
         <label for="imageUrl" class="form-label">Resim Yolu</label>
-        <input #imageUrl type="text" class="form-control"/>
+        <input type="text" #imgUrl="ngModel" [(ngModel)]="model.imageUrl" name="imageUrl" class="form-control" required/>
+        <div class="alert alert-danger mt-1" *ngIf="imgUrl.invalid && imgUrl.touched">
+            <p *ngIf="imgUrl.errors['required']">Bu Alana Bilgi Girilmesi Zorunludur !</p>
+        </div>
     </div>
 
     <div class="mb-3">
         <label for="categoryId" class="form-label">Kategori</label>
-        <select #categoryId class="form-select">
-            <option value="-1">Kategori Seçiniz</option>
+        <select #categoryId = "ngModel" [(ngModel)]="model.categoryId" name="categoryId" class="form-select" required>
+            <option value="">Kategori Seçiniz</option>
             <option *ngFor="let item of categories" [value] = "item.id">{{ item.name | titlecase }}</option>
         </select>
+        <div class="alert alert-danger mt-1" *ngIf="categoryId.invalid && categoryId.touched">
+            <p *ngIf="categoryId.errors['required']">Bu Alana Bilgi Girilmesi Zorunludur !</p>
+        </div>
     </div>
 
-    <button class="btn btn-outline-dark" (click)="createMovie(title, description, imageUrl, categoryId)">Ekle</button>
+    <button [disabled] ="form.invalid" type="submit" class="btn btn-outline-dark">Ekle</button>
 </form>
