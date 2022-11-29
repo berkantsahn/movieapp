@@ -1,23 +1,101 @@
 {
-    "movies": [
-        { "id": 1, "title": "Film 1", "description": "1- Lorem ipsum dolor, sit amet consectetur adipisicing elit. Pariatur eum molestiae culpa similique sunt inventore aut, quasi eveniet, architecto sint reprehenderit! Amet, illo voluptas! Suscipit minus facilis error dignissimos dolorum!", 
-        "imageUrl": "1.jpeg", "isPopular": 0, "categoryId" : 1},
-        { "id": 2, "title": "Film 2", "description": "2- Lorem ipsum dolor, sit amet consectetur adipisicing elit. Pariatur eum molestiae culpa similique sunt inventore aut, quasi eveniet, architecto sint reprehenderit! Amet, illo voluptas! Suscipit minus facilis error dignissimos dolorum!", 
-        "imageUrl": "2.jpeg", "isPopular": 1, "categoryId" : 1},
-        { "id": 3, "title": "Film 3", "description": "3- Lorem ipsum dolor, sit amet consectetur adipisicing elit. Pariatur eum molestiae culpa similique sunt inventore aut, quasi eveniet, architecto sint reprehenderit! Amet, illo voluptas! Suscipit minus facilis error dignissimos dolorum!", 
-        "imageUrl": "3.jpeg", "isPopular": 1, "categoryId" : 2},
-        { "id": 4, "title": "Film 4", "description": "4- Lorem ipsum dolor, sit amet consectetur adipisicing elit. Pariatur eum molestiae culpa similique sunt inventore aut, quasi eveniet, architecto sint reprehenderit! Amet, illo voluptas! Suscipit minus facilis error dignissimos dolorum!", 
-        "imageUrl": "4.jpeg", "isPopular": 1, "categoryId" : 3},
-        { "id": 5, "title": "Film 5", "description": "5- Farklı bir açıklama", 
-        "imageUrl": "5.jpeg", "isPopular": 0, "categoryId" : 4},
-        { "id": 6, "title": "Film 6", "description": "6- Farklı bir açıklama", 
-        "imageUrl": "1.jpeg", "isPopular": 0, "categoryId" : 5}
-    ],
-    "categories": [
-        {"id": 1, "name": "macera"},
-        {"id": 2, "name": "romantik"},
-        {"id": 3, "name": "komedi"},
-        {"id": 4, "name": "dram"},
-        {"id": 5, "name": "bilim Kurgu"}
-    ]
+  "movies": [
+    {
+      "id": 1,
+      "title": "Film 1",
+      "description": "1- Lorem ipsum dolor, sit amet consectetur adipisicing elit. Pariatur eum molestiae culpa similique sunt inventore aut, quasi eveniet, architecto sint reprehenderit! Amet, illo voluptas! Suscipit minus facilis error dignissimos dolorum!",
+      "imageUrl": "1.jpeg",
+      "isPopular": 0,
+      "categoryId": 1
+    },
+    {
+      "id": 2,
+      "title": "Film 2",
+      "description": "2- Lorem ipsum dolor, sit amet consectetur adipisicing elit. Pariatur eum molestiae culpa similique sunt inventore aut, quasi eveniet, architecto sint reprehenderit! Amet, illo voluptas! Suscipit minus facilis error dignissimos dolorum!",
+      "imageUrl": "2.jpeg",
+      "isPopular": 1,
+      "categoryId": 1
+    },
+    {
+      "id": 3,
+      "title": "Film 3",
+      "description": "3- Lorem ipsum dolor, sit amet consectetur adipisicing elit. Pariatur eum molestiae culpa similique sunt inventore aut, quasi eveniet, architecto sint reprehenderit! Amet, illo voluptas! Suscipit minus facilis error dignissimos dolorum!",
+      "imageUrl": "3.jpeg",
+      "isPopular": 1,
+      "categoryId": 2
+    },
+    {
+      "id": 4,
+      "title": "Film 4",
+      "description": "4- Lorem ipsum dolor, sit amet consectetur adipisicing elit. Pariatur eum molestiae culpa similique sunt inventore aut, quasi eveniet, architecto sint reprehenderit! Amet, illo voluptas! Suscipit minus facilis error dignissimos dolorum!",
+      "imageUrl": "4.jpeg",
+      "isPopular": 1,
+      "categoryId": 3
+    },
+    {
+      "id": 5,
+      "title": "Film 5",
+      "description": "5- Farklı bir açıklama",
+      "imageUrl": "5.jpeg",
+      "isPopular": 0,
+      "categoryId": 4
+    },
+    {
+      "id": 6,
+      "title": "Film 6",
+      "description": "6- Farklı bir açıklama",
+      "imageUrl": "1.jpeg",
+      "isPopular": 0,
+      "categoryId": 5
+    },
+    {
+      "id": 7,
+      "title": "test",
+      "description": "mest",
+      "imageUrl": "2.jpeg",
+      "isPopular": false,
+      "datePublished": 1669721159091,
+      "categoryId": "2"
+    },
+    {
+      "id": 8,
+      "title": "Mest",
+      "description": "mest açıklama",
+      "imageUrl": "3.jpeg",
+      "isPopular": false,
+      "datePublished": 1669721394578,
+      "categoryId": "4"
+    },
+    {
+      "id": 9,
+      "title": "Jest",
+      "description": "jest açıklama",
+      "imageUrl": "4.jpeg",
+      "isPopular": false,
+      "datePublished": 1669721467119,
+      "categoryId": "2"
+    }
+  ],
+  "categories": [
+    {
+      "id": 1,
+      "name": "macera"
+    },
+    {
+      "id": 2,
+      "name": "romantik"
+    },
+    {
+      "id": 3,
+      "name": "komedi"
+    },
+    {
+      "id": 4,
+      "name": "dram"
+    },
+    {
+      "id": 5,
+      "name": "bilim Kurgu"
+    }
+  ]
 }

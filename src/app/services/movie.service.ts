@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { catchError, Observable, tap, throwError } from "rxjs";
 import { Movie } from "../models/movie";
@@ -22,6 +22,22 @@ export class MovieService {
 
     getMovieById(movieId: number): Observable<Movie> {
         return this.http.get<Movie>(this.url + "/" + movieId).pipe(tap(data => console.log(data)),
+        catchError(this.handleError));
+    }
+
+    // create component içerisinde oluşturulan createMovie buraya bilgileri gönderir
+    createMovie(movie: Movie): Observable<Movie> {
+
+        // altta header gönderme örneği mevcuttur. Header içerisinde bir token bilgisi gönderilebilir.
+        // örneğin üye girişi yaparken authorization yapılacaksa header ile token gönderilerek yetkilendirme işlemi yapılabilir
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'Content-Type':'application/json',
+                'Authorization':'Token'
+            })
+        }
+
+        return this.http.post<Movie>(this.url, movie, httpOptions).pipe(tap(data => console.log(data)),
         catchError(this.handleError));
     }
 

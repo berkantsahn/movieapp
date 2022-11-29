@@ -1,0 +1,27 @@
+<h1>Film Ekle</h1>
+<form action="">
+    <div class="mb-3">
+        <label for="title" class="form-label">Başlık</label>
+        <input #title type="text" class="form-control"/>
+    </div>
+
+    <div class="mb-3">
+        <label for="description" class="form-label">Açıklama</label>
+        <textarea #description class="form-control"></textarea>
+    </div>
+
+    <div class="mb-3">
+        <label for="imageUrl" class="form-label">Resim Yolu</label>
+        <input #imageUrl type="text" class="form-control"/>
+    </div>
+
+    <div class="mb-3">
+        <label for="categoryId" class="form-label">Kategori</label>
+        <select #categoryId class="form-select">
+            <option value="-1">Kategori Seçiniz</option>
+            <option *ngFor="let item of categories" [value] = "item.id">{{ item.name | titlecase }}</option>
+        </select>
+    </div>
+
+    <button class="btn btn-outline-dark" (click)="createMovie(title, description, imageUrl, categoryId)">Ekle</button>
+</form>
