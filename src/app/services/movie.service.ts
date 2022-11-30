@@ -1,23 +1,35 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { catchError, Observable, tap, throwError } from "rxjs";
+import { catchError, map, Observable, tap, throwError } from "rxjs";
 import { Movie } from "../models/movie";
 
 @Injectable()
 export class MovieService {
     url = "http://localhost:3000/movies";
 
+    //buraya kendi firebase urlnizi eklemelisiniz
+    url_firebase = "https://angular-movie-app-4fca6-default-rtdb.firebaseio.com/";
+
     constructor(private http: HttpClient) {}
 
     // değer observable olarak alındığı için geriye dönen değerde observable olmalıdır
     getMovies(categoryId: number): Observable<Movie[]> {
 
-        let newUrl = this.url;
+        let newUrl = this.url_firebase + "movies.json";
         if(categoryId) {
             newUrl += '?categoryId=' + categoryId;
         }
-        return this.http.get<Movie[]>(newUrl).pipe(tap(data => console.log(data)),
-        catchError(this.handleError));
+        return this.http.get<Movie[]>(newUrl).pipe(
+            // Gelen id bilgisini obje içindeki id ile değiştirmek için map kullanıyoruz
+            map(response => {
+                const movies: Movie[] = []
+                for(const key in response) {
+                    movies.push({...response[key], id: key});
+                }
+                return movies;
+            }),
+            tap(data => console.log(data)),
+            catchError(this.handleError));
     }
 
     getMovieById(movieId: number): Observable<Movie> {
@@ -37,7 +49,7 @@ export class MovieService {
             })
         }
 
-        return this.http.post<Movie>(this.url, movie, httpOptions).pipe(tap(data => console.log(data)),
+        return this.http.post<Movie>(this.url_firebase + "/movies.json", movie, httpOptions).pipe(tap(data => console.log(data)),
         catchError(this.handleError));
     }
 
