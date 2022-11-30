@@ -6,10 +6,18 @@
                 <a href="#" class="nav-link active">Anasayfa</a>
             </li>
             <li class="nav-item">
-                <a [routerLink]="['/movies']" routerLinkActive="router-link-active"  class="nav-link">Filmler</a>
+                <a routerLink="/movies" class="nav-link">Filmler</a>
             </li>
             <li class="nav-item">
-                <a [routerLink]="['/movies/create']" routerLinkActive="router-link-active"  class="nav-link">Film Ekle</a>
+                <a routerLink="/movies/create" class="nav-link">Film Ekle</a>
+            </li>
+            <li class="nav-item">
+                <a routerLink="/categories/create" class="nav-link">Kategori Ekle</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a routerLink="/login" class="nav-link">Giriş Yap</a>
             </li>
         </ul>
     </div>

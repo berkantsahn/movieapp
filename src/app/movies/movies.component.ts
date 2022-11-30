@@ -30,6 +30,7 @@ export class MoviesComponent implements OnInit {
   
   filterText: string = "";
   error:any;
+  loading: boolean = false;
 
   // oluşturduğumuz alertify servisi constructor içerisinde alertify servisi inject ettik
   // db.json içerisinden veri çekeceğimiz için httpClient tanımlaması yaptık
@@ -62,10 +63,13 @@ export class MoviesComponent implements OnInit {
 
     //getMovies içerisine urlyi parametre olarak gönderebilmek için activatedRoot parametresi kullanılır
     this.activatedRoute.params.subscribe(params => {
+      this.loading = true;
       this.movieService.getMovies(params["categoryId"]).subscribe(data => {
         this.movies = data;
         this.filteredMovies = this.movies;
-      }, error => { this.error = error });
+        this.loading = false;
+      }, error => { this.error = error;
+      this.loading = false; });
     });
   }
 

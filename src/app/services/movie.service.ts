@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { catchError, map, Observable, tap, throwError } from "rxjs";
+import { catchError, delay, map, Observable, tap, throwError } from "rxjs";
 import { Movie } from "../models/movie";
 
 @Injectable()
@@ -13,27 +13,34 @@ export class MovieService {
     constructor(private http: HttpClient) {}
 
     // değer observable olarak alındığı için geriye dönen değerde observable olmalıdır
-    getMovies(categoryId: number): Observable<Movie[]> {
+    getMovies(categoryId: string): Observable<Movie[]> {
 
-        let newUrl = this.url_firebase + "movies.json";
-        if(categoryId) {
-            newUrl += '?categoryId=' + categoryId;
-        }
-        return this.http.get<Movie[]>(newUrl).pipe(
+        // let newUrl = this.url_firebase + "movies.json";
+        // if(categoryId) {
+        //     newUrl += '?categoryId=' + categoryId;
+        // }
+        return this.http.get<Movie[]>(this.url_firebase + "movies.json").pipe(
             // Gelen id bilgisini obje içindeki id ile değiştirmek için map kullanıyoruz
             map(response => {
                 const movies: Movie[] = []
                 for(const key in response) {
-                    movies.push({...response[key], id: key});
+                    if(categoryId) {
+                        if(categoryId === response[key].categoryId){
+                            movies.push({...response[key], id: key});
+                        }
+                    } else {
+                        movies.push({...response[key], id: key});
+                    }
+                    
                 }
                 return movies;
             }),
             tap(data => console.log(data)),
-            catchError(this.handleError));
+            catchError(this.handleError), delay(100));
     }
 
-    getMovieById(movieId: number): Observable<Movie> {
-        return this.http.get<Movie>(this.url + "/" + movieId).pipe(tap(data => console.log(data)),
+    getMovieById(movieId: any): Observable<Movie> {
+        return this.http.get<Movie>(this.url_firebase + "movies/" + movieId + ".json").pipe(tap(data => console.log(data)),
         catchError(this.handleError));
     }
 

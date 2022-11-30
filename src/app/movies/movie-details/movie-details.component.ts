@@ -13,13 +13,16 @@ import { MovieService } from 'src/app/services/movie.service';
 export class MovieDetailsComponent implements OnInit {
 
   movie: Movie;
+  loading: boolean = false;
 
   constructor(private movieService: MovieService, private activatedRoute: ActivatedRoute) {}
   
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
+      this.loading = true;
       this.movieService.getMovieById(params["movieId"]).subscribe(data => {
         this.movie = data;
+        this.loading = false;
       });
     });
   }
