@@ -1,41 +1,42 @@
 <h1>Film Ekle</h1>
-<form #form = "ngForm" (ngSubmit)="createMovie()">
+<form #form = "ngForm" (ngSubmit)="createMovie()" [formGroup]="movieForm">
     <div class="mb-3">
         <label for="title" class="form-label">Başlık</label>
-        <input type="text" required minlength="3" #title="ngModel" (click)="log(title)" [(ngModel)]="model.title" name="title" class="form-control">
-        <div class="alert alert-danger mt-1" *ngIf="title.invalid && title.touched">
-            <p *ngIf="title.errors['required']">Bu Alana Bilgi Girilmesi Zorunludur !</p>
-            <p *ngIf="title.errors['minlength']">Bu Alana Minimum 3 Karakter Girilmesi Zorunludur !</p>
+        <input type="text" name="title" class="form-control" formControlName = "title">
+        <div class="alert alert-danger mt-1" *ngIf="movieForm.get('title').invalid && movieForm.get('title').touched">
+            <p *ngIf="movieForm.get('title').errors['required']">Bu Alanın Doldurulması Zorunludur!</p>
+            <p *ngIf="movieForm.get('title').errors['minlength']">Bu Alana Minimum 3 Karakter Girmelisiniz!</p>
         </div>
     </div>
 
     <div class="mb-3">
         <label for="description" class="form-label">Açıklama</label>
-        <textarea required minlength="20" #description="ngModel" [(ngModel)]="model.description" name="description" class="form-control"></textarea>
-        <div class="alert alert-danger mt-1" *ngIf="description.invalid && description.touched">
-            <p *ngIf="description.errors['required']">Bu Alana Bilgi Girilmesi Zorunludur !</p>
-            <p *ngIf="description.errors['minlength']">Bu Alana Minimum 20 Karakter Girilmesi Zorunludur !</p>
+        <textarea name="description" class="form-control" formControlName = "description"></textarea>
+        <div class="alert alert-danger mt-1" *ngIf="movieForm.get('description').invalid && movieForm.get('description').touched">
+            <p *ngIf="movieForm.get('description').errors['required']">Bu Alanın Doldurulması Zorunludur!</p>
+            <p *ngIf="movieForm.get('description').errors['minlength']">Bu Alana Minimum 20 Karakter Girmelisiniz!</p>
         </div>
     </div>
 
     <div class="mb-3">
         <label for="imageUrl" class="form-label">Resim Yolu</label>
-        <input type="text" #imgUrl="ngModel" [(ngModel)]="model.imageUrl" name="imageUrl" class="form-control" required/>
-        <div class="alert alert-danger mt-1" *ngIf="imgUrl.invalid && imgUrl.touched">
-            <p *ngIf="imgUrl.errors['required']">Bu Alana Bilgi Girilmesi Zorunludur !</p>
+        <input type="text" name="imageUrl" class="form-control" formControlName = "imageUrl" />
+        <div class="alert alert-danger mt-1" *ngIf="movieForm.get('imageUrl').invalid && movieForm.get('imageUrl').touched">
+            <p>Bu Alanın Doldurulması Zorunludur!</p>
         </div>
     </div>
 
     <div class="mb-3">
         <label for="categoryId" class="form-label">Kategori</label>
-        <select #categoryId = "ngModel" [(ngModel)]="model.categoryId" name="categoryId" class="form-select" required>
+        <select name="categoryId" class="form-select" formControlName = "categoryId">
             <option value="">Kategori Seçiniz</option>
             <option *ngFor="let item of categories" [value] = "item.id">{{ item.name | titlecase }}</option>
         </select>
-        <div class="alert alert-danger mt-1" *ngIf="categoryId.invalid && categoryId.touched">
-            <p *ngIf="categoryId.errors['required']">Bu Alana Bilgi Girilmesi Zorunludur !</p>
+        <div class="alert alert-danger mt-1" *ngIf="movieForm.get('imageUrl').invalid && movieForm.get('imageUrl').touched">
+            <p>Bu Alanın Seçilmesi Zorunludur!</p>
         </div>
     </div>
 
-    <button [disabled] ="form.invalid" type="submit" class="btn btn-outline-dark">Ekle</button>
+    <button type="submit" class="btn btn-outline-dark">Ekle</button>
+    <button class="btn btn-outline-success m-3" (click)="clearForm()">Temizle</button>
 </form>

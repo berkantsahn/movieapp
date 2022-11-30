@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm, NgModel } from '@angular/forms';
+import { FormControl, FormGroup, NgForm, NgModel, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Category } from '../models/category';
@@ -66,19 +66,41 @@ export class MovieCreateComponent implements OnInit {
 
   //ngSubmit ile createMovie'yi çalıştıracağımız için yukarıdaki yerine aşağıdaki komutları uyguluyoruz
 
-  createMovie(){
-    const movie = {
-      id: 0,
-      title: this.model.title,
-      description: this.model.description,
-      imageUrl: this.model.imageUrl,
-      isPopular: false,
-      datePublished: new Date().getTime(),
-      categoryId: this.model.categoryId
-    };
+  // eğer template driven form ile ekleme yapsaydık aşağıdaki kodları kullanabilirdik
+  // createMovie(){
+  //   const movie = {
+  //     id: 0,
+  //     title: this.model.title,
+  //     description: this.model.description,
+  //     imageUrl: this.model.imageUrl,
+  //     isPopular: false,
+  //     datePublished: new Date().getTime(),
+  //     categoryId: this.model.categoryId
+  //   };
 
-    this.movieService.createMovie(movie).subscribe(data =>
-      this.router.navigate(['/movies']));
+  //   this.movieService.createMovie(movie).subscribe(data =>
+  //     this.router.navigate(['/movies']));
+  // }
+
+  // reactive forms ile ilgili kodlar aşağıda bulunmaktadır
+  movieForm = new FormGroup({
+    title: new FormControl("", [Validators.required, Validators.minLength(3)]),
+    description: new FormControl("", [Validators.required, Validators.minLength(20)]),
+    imageUrl: new FormControl("", [Validators.required]),
+    categoryId: new FormControl("", [Validators.required])
+  });
+  
+  clearForm(){
+    this.movieForm.patchValue({
+      title: '',
+      description: '',
+      imageUrl: '',
+      categoryId: ''
+    });
+  }
+
+  createMovie(){
+
   }
 
   log(value: any){
