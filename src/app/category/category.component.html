@@ -6,7 +6,7 @@
     <!-- class binding'de displayAll false değer döndürdüyse selectedCategory ve liste üzerinden gelen itemin idsini birbirine eşitliyoruz -->
     <!-- bunun sonucunda ilgili class'a eleman eklenir -->
     <a *ngFor="let item of categories"
-    routerLink="movies/category/{{ item.id }}" 
+    routerLink="/movies/category/{{ item.id }}" 
     [class.active] = "!displayAll && selectedCategory.id == item.id"
     (click) = "selectCategory(item)"
     class="list-group-item list-group-item-action">{{ item.name | titlecase }}</a>

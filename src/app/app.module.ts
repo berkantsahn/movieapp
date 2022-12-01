@@ -12,11 +12,13 @@ import { SummaryPipe } from './pipes/summary.pipe';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MovieFilterPipe } from './pipes/movie-filter.pipe';
 import { AlertifyService } from './services/alertify.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { MovieCreateComponent } from './movie-create/movie-create.component';
 import { CategoryCreateComponent } from './category-create/category-create.component';
 import { AuthComponent } from './auth/auth.component';
+import { ErrorInterceptor } from './services/error.interceptor';
+import { AuthInterceptor } from './services/auth.interceptor';
 
 @NgModule({
   declarations: [ //Componentlerin eklendiği bölüm
@@ -40,7 +42,7 @@ import { AuthComponent } from './auth/auth.component';
     AppRoutingModule,
     ReactiveFormsModule
   ],
-  providers: [AlertifyService], //Serviceslerin eklendiği bölüm. Eğer serviceler burada tanımlanırsa global sadece component içerisinde tanımlanırsa yerel olur
+  providers: [AlertifyService, { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi:true }, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi:true }], //Serviceslerin eklendiği bölüm. Eğer serviceler burada tanımlanırsa global sadece component içerisinde tanımlanırsa yerel olur
   bootstrap: [AppComponent] //Starter Component
 })
 export class AppModule { }
