@@ -1,3 +1,7 @@
+<div *ngIf="error" class="alert alert-warning">
+    {{ error }}
+</div>
+
 <form *ngIf="!loading" #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
     <div class="mb-3">
         <label for="email" class="form-label">E-Mail</label>

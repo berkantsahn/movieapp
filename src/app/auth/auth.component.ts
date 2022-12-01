@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Observable } from 'rxjs';
@@ -14,13 +15,11 @@ export class AuthComponent implements OnInit {
 
   isLoginMode: boolean = true;
   loading: boolean = false;
-  constructor(private authService: AuthService){
+  error:string;
 
-  }
+  constructor(private authService: AuthService){ }
 
-  ngOnInit(): void {
-    
-  }
+  ngOnInit(): void { }
 
   onToggleMode(){
     this.isLoginMode = !this.isLoginMode;
@@ -46,7 +45,8 @@ export class AuthComponent implements OnInit {
     authResponse.subscribe(response => {
       console.log(response);
       this.loading = false;
-    }, err => {
+    }, err=> {
+      this.error = err;
       console.log(err);
       this.loading = false;
     });
