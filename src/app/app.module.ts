@@ -20,6 +20,8 @@ import { AuthComponent } from './auth/auth.component';
 import { ErrorInterceptor } from './services/error.interceptor';
 import { AuthInterceptor } from './services/auth.interceptor';
 import { MoviesHomeComponent } from './movies/movies-home/movies-home.component';
+import { AlertComponent } from './shared/alert/alert.component';
+import { LoadingComponent } from './shared/loading/loading.component';
 
 @NgModule({
   declarations: [ //Componentlerin eklendiği bölüm
@@ -35,7 +37,9 @@ import { MoviesHomeComponent } from './movies/movies-home/movies-home.component'
     MovieCreateComponent,
     CategoryCreateComponent,
     AuthComponent,
-    MoviesHomeComponent
+    MoviesHomeComponent,
+    AlertComponent,
+    LoadingComponent
   ],
   imports: [ //Modulelerin eklendiği bölüm
     BrowserModule,

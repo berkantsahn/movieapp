@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Movie } from '../models/movie';
 import { MovieRepository } from '../models/movie.repository';
 import { AlertifyService } from '../services/alertify.service';
+import { AuthService } from '../services/auth.service';
 import { MovieService } from '../services/movie.service';
 
 //alertify lib kullanmak için tanımlama yaptık. Global bir alertify servis oluşturduğumuz için buradan kaldırıyoruz
@@ -21,6 +22,7 @@ export class MoviesComponent implements OnInit {
   // referans olarak boş değer gönderiyoruz
   movies: Movie[] = [] ;
   filteredMovies: Movie[] = [];
+  userId:string;
   //pipe yerine event kullanılarak filtremele işlemi yapıldığı için açıklama satırına alındı
   //popularMovies: Movie[];
 
@@ -36,7 +38,7 @@ export class MoviesComponent implements OnInit {
   // db.json içerisinden veri çekeceğimiz için httpClient tanımlaması yaptık
   // url yapılandırmasını yapabilmek için activatedRoot isimli parametre constructor içerisine inject edilmelidir
   constructor(private alertify: AlertifyService, private movieService: MovieService,
-    private activatedRoute: ActivatedRoute){
+    private activatedRoute: ActivatedRoute, private authService: AuthService){
     // db.json içerisinden verileri çekeceğimiz için buradaki movieRepository ve movies tanımlamalarını yorum satırına alındı
     // this.movieRepository = new MovieRepository();
     // this.movies = this.movieRepository.getMovies();
@@ -48,6 +50,10 @@ export class MoviesComponent implements OnInit {
   // (burada örnek Movie üzerinden yapıldığı için referans verilmesi gereken Movie'dir)
   // Referansı tanımlama aşamasında (yukarıda) veriyoruz. (içerisine boş bir değer gönderiyoruz)
   ngOnInit(): void {
+    //userId içerisine user bilgisini almak için aşağıdaki komutu kullandık
+    this.authService.user.subscribe(user => {
+      this.userId = user.id
+    });
     // aşağıdaki kodlar kullanılmak istenirse constructor içerisine httpClient tanımlaması yapılmalıdır
     // httpclient işlemleri service içerisine taşındığı için burada açıklama satırına alınmıştır
     // gelen sonuç observable bir değerdir
@@ -86,16 +92,21 @@ export class MoviesComponent implements OnInit {
       $event.target.innerText = "Listeden Çıkar";
       $event.target.classList.remove('btn-dark');
       $event.target.classList.add('btn-danger');
+
+      this.movieService.addToMyList({userId: this.userId, movieId: movie.id}).subscribe(() => 
       //alertify servisi inject ettikten sonra alttaki kullanımı bir altındaki gibi değiştiriyoruz
       //alertify.success(movie.title + " listene eklendi");
-      this.alertify.success(movie.title + " listene eklendi");
+      this.alertify.success(movie.title + " listene eklendi"));      
     }
     else {
       $event.target.innerText = "Listeye Ekle";
       $event.target.classList.remove('btn-danger');
       $event.target.classList.add('btn-dark');
+
+      this.movieService.removeFromList({userId: this.userId, movieId: movie.id}).subscribe(() =>
+      this.alertify.success(movie.title + " listenden çıkartıldı"));
       //alertify.error(movie.title + " listenden çıkartıldı"); 
-      this.alertify.success(movie.title + " listenden çıkartıldı");
+      
     }
   }
   // movies:any = [

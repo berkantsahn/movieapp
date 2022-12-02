@@ -4,6 +4,7 @@
 </div>
 
 <div class="alert alert-danger" *ngIf="error">{{ error }}</div>
+<!-- <app-alert></app-alert> -->
 
 <div *ngIf="!loading">
     <div *ngIf="movies.length > 0; else noMovies">

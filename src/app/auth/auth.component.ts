@@ -13,11 +13,11 @@ import { AuthService } from '../services/auth.service';
 })
 export class AuthComponent implements OnInit {
 
-  isLoginMode: boolean = false;
+  isLoginMode: boolean = true;
   loading: boolean = false;
   error:string;
 
-  constructor(private authService: AuthService, private router:Router){ }
+  constructor(private authService: AuthService, private router: Router){ }
 
   ngOnInit(): void { }
 
@@ -50,5 +50,9 @@ export class AuthComponent implements OnInit {
       this.loading = false;
     });
     form.reset();
+  }
+
+  closeDialog(){
+    this.error = null;
   }
 }
