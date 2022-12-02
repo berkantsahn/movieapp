@@ -19,6 +19,7 @@ import { CategoryCreateComponent } from './category-create/category-create.compo
 import { AuthComponent } from './auth/auth.component';
 import { ErrorInterceptor } from './services/error.interceptor';
 import { AuthInterceptor } from './services/auth.interceptor';
+import { MoviesHomeComponent } from './movies/movies-home/movies-home.component';
 
 @NgModule({
   declarations: [ //Componentlerin eklendiği bölüm
@@ -33,7 +34,8 @@ import { AuthInterceptor } from './services/auth.interceptor';
     MovieFilterPipe,
     MovieCreateComponent,
     CategoryCreateComponent,
-    AuthComponent
+    AuthComponent,
+    MoviesHomeComponent
   ],
   imports: [ //Modulelerin eklendiği bölüm
     BrowserModule,
