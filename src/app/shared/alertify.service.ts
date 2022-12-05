@@ -4,7 +4,9 @@ declare let alertify:any;
 
 //modüle ekleme yöntemine göre global veya yerel bir servis oluşturabiliriz
 //global bir servis oluşturmak için servisi componente inject etmemiz gerekmekte
-@Injectable(
+@Injectable({
+    providedIn:'root' 
+}
 //    {
 //     buraya providedIn yazılarak projeye import edilebilir veya app.module.ts içerisinde providers içerisine
 //     AlertfiyService eklenerek import işlemi gerçekleştirilebilir

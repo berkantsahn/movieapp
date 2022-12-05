@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, NgForm, NgModel, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { AlertifyService } from '../../services/alertify.service';
+import { AlertifyService } from '../../shared/alertify.service';
 import { CategoryService } from '../../category/category.service';
 import { MovieService } from '../movie.service';
 import { Category } from 'src/app/category/category.model';

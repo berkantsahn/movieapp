@@ -12,7 +12,7 @@ import { User } from './user.model';
 })
 export class AuthService {
 
-  apiKey:string = "AIzaSyDiQ8SKqXLH75D6y82zu971u_Fzg08jUYk";
+  apiKey:string = "writeYourKey";
   // başlangıçta null verdik fakat login ve signUp metotlarında this.user.next diyerek içerisine bilgi gönderiyoruz
   // BehaviorSubject kullanmamızın nedeni bu metotlar içerisinde subscribe olmadan veri göndermemizdir. Böylece bir önceki veriyi okuma
   // imkanımız oluyor
