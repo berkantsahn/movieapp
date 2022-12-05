@@ -1,4 +1,4 @@
-import { Movie } from "./movie";
+import { Movie } from "./movie-model";
 
 export class MovieRepository {
     private movies: Movie[];

@@ -1,10 +1,10 @@
 import { AbstractType, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Movie } from '../models/movie';
-import { MovieRepository } from '../models/movie.repository';
+import { Movie } from './movie-model';
+import { MovieRepository } from './movie.repository';
 import { AlertifyService } from '../services/alertify.service';
-import { AuthService } from '../services/auth.service';
-import { MovieService } from '../services/movie.service';
+import { AuthService } from '../auth/auth.service';
+import { MovieService } from './movie.service';
 
 //alertify lib kullanmak için tanımlama yaptık. Global bir alertify servis oluşturduğumuz için buradan kaldırıyoruz
 //declare let alertify: any;
@@ -23,6 +23,7 @@ export class MoviesComponent implements OnInit {
   movies: Movie[] = [] ;
   filteredMovies: Movie[] = [];
   userId:string;
+  movieList:string[] = [];
   //pipe yerine event kullanılarak filtremele işlemi yapıldığı için açıklama satırına alındı
   //popularMovies: Movie[];
 
@@ -52,7 +53,24 @@ export class MoviesComponent implements OnInit {
   ngOnInit(): void {
     //userId içerisine user bilgisini almak için aşağıdaki komutu kullandık
     this.authService.user.subscribe(user => {
-      this.userId = user.id
+      if(user){
+        this.userId = user.id
+
+      //getMovies içerisine urlyi parametre olarak gönderebilmek için activatedRoot parametresi kullanılır
+      this.activatedRoute.params.subscribe(params => {
+      this.loading = true;
+      this.movieService.getMovies(params["categoryId"]).subscribe(data => {
+      this.movies = data;
+      this.filteredMovies = this.movies;
+      this.movieService.getList(this.userId).subscribe(data => {
+          this.movieList = data;
+          console.log(this.movieList);
+        });
+        this.loading = false;
+      }, error => { this.error = error;
+      this.loading = false; });
+    }); 
+      }    
     });
     // aşağıdaki kodlar kullanılmak istenirse constructor içerisine httpClient tanımlaması yapılmalıdır
     // httpclient işlemleri service içerisine taşındığı için burada açıklama satırına alınmıştır
@@ -67,16 +85,11 @@ export class MoviesComponent implements OnInit {
     //   console.log(data);
     // });
 
-    //getMovies içerisine urlyi parametre olarak gönderebilmek için activatedRoot parametresi kullanılır
-    this.activatedRoute.params.subscribe(params => {
-      this.loading = true;
-      this.movieService.getMovies(params["categoryId"]).subscribe(data => {
-        this.movies = data;
-        this.filteredMovies = this.movies;
-        this.loading = false;
-      }, error => { this.error = error;
-      this.loading = false; });
-    });
+    
+  }
+
+  getButtonState(movie:Movie){
+    return this.movieList.findIndex(m => m === movie.id) > -1 
   }
 
   onInputChange(){
@@ -84,6 +97,8 @@ export class MoviesComponent implements OnInit {
     this.filteredMovies = this.filterText? this.movies.filter(m => m.title.toLowerCase().indexOf(this.filterText) !== -1 || 
     m.description.toLowerCase().indexOf(this.filterText) !== -1): this.movies;
   }
+
+
 
   addToList($event: any, movie: Movie){
     //gönderilen event bilgisi (tıklanan buton) class listesine ulaş ve btn btn-primary ise

@@ -3,8 +3,8 @@ import { identifierName } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, catchError, Observable, Subject, tap, throwError } from 'rxjs';
-import { User } from '../models/user';
-import { AuthResponse } from './../models/AuthResponse';
+import { AuthResponse } from './auth-response.model';
+import { User } from './user.model';
 
 
 @Injectable({

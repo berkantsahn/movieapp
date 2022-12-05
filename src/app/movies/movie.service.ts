@@ -1,8 +1,8 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { catchError, delay, map, Observable, tap, throwError } from "rxjs";
-import { Movie } from "../models/movie";
-import { MyList } from "../models/mylist";
+import { Movie } from "./movie-model";
+import { MyList } from "./mylist.model";
 
 @Injectable()
 export class MovieService {
@@ -71,6 +71,19 @@ export class MovieService {
     removeFromList(item: MyList): Observable<MyList> {
         return this.http.delete<MyList>(this.url_firebase + "/users/" + item.userId + "/list/" + item.movieId + ".json")
         .pipe(tap(data => console.log(data), catchError(this.handleError)));
+    }
+
+    getList(userId:string): Observable<string[]> {
+        return this.http.get<string[]>(this.url_firebase + "/users/" + userId + "/list.json").pipe(
+            map(response => {
+                const movies:string [] = [];
+                for(const key in response){
+                    movies.push(key);
+                }
+                return movies;
+            }),
+                tap(data => console.log(data)),
+                catchError(this.handleError));
     }
 
     private handleError(error: HttpErrorResponse){

@@ -1,43 +1,24 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
-import { CategoryComponent } from './category/category.component';
-import { MoviesComponent } from './movies/movies.component';
-import { MovieComponent } from './movies/movie/movie.component';
-import { MovieDetailsComponent } from './movies/movie-details/movie-details.component';
 import { FooterComponent } from './footer/footer.component';
-import { SummaryPipe } from './pipes/summary.pipe';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MovieFilterPipe } from './pipes/movie-filter.pipe';
+import { FormsModule } from '@angular/forms';
 import { AlertifyService } from './services/alertify.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
-import { MovieCreateComponent } from './movie-create/movie-create.component';
-import { CategoryCreateComponent } from './category-create/category-create.component';
-import { AuthComponent } from './auth/auth.component';
 import { ErrorInterceptor } from './services/error.interceptor';
-import { AuthInterceptor } from './services/auth.interceptor';
-import { MoviesHomeComponent } from './movies/movies-home/movies-home.component';
 import { AlertComponent } from './shared/alert/alert.component';
 import { LoadingComponent } from './shared/loading/loading.component';
+import { MoviesModule } from './movies/movies.module';
+import { AuthInterceptor } from './auth/auth.interceptor';
+import { AuthModule } from './auth/auth.module';
 
 @NgModule({
   declarations: [ //Componentlerin eklendiği bölüm
     AppComponent,
-    NavbarComponent,
-    CategoryComponent,
-    MoviesComponent,
-    MovieComponent,
-    MovieDetailsComponent,
+    NavbarComponent, 
     FooterComponent,
-    SummaryPipe,
-    MovieFilterPipe,
-    MovieCreateComponent,
-    CategoryCreateComponent,
-    AuthComponent,
-    MoviesHomeComponent,
     AlertComponent,
     LoadingComponent
   ],
@@ -46,7 +27,8 @@ import { LoadingComponent } from './shared/loading/loading.component';
     FormsModule,
     HttpClientModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    MoviesModule,
+    AuthModule
   ],
   providers: [AlertifyService, { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi:true }, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi:true }], //Serviceslerin eklendiği bölüm. Eğer serviceler burada tanımlanırsa global sadece component içerisinde tanımlanırsa yerel olur
   bootstrap: [AppComponent] //Starter Component
